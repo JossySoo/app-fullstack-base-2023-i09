@@ -1,61 +1,34 @@
 
-function sayHello() {
-    let current_value = document.getElementById("textarea_1") as HTMLInputElement;
-    let new_value = "Hello world!!!" + "\n" + current_value.value;
-    document.getElementById("textarea_1").innerHTML = new_value;
-    let nombre: string = "lala";
+
+class Main implements EventListenerObject{
+    public usuarios: Array<Usuario>= new Array<Usuario>();
+  
+
+    private buscarPersonas() {
+        let usuari1: Usuario = new Usuario("user1", "user", "1234");
+        let usuario2: Usuario = new Usuario("admin1", "admin", "1235");
+        this.usuarios.push(usuari1);
+        this.usuarios.push(usuario2);
+        for (let u of this.usuarios) {
+            console.log(u.mostrar,this.usuarios.length);
+        }
+    }
+    handleEvent(object: Event): void {
+        this.buscarPersonas();
+    }
 
 }
 
-
-let nombreVariable: string;
-nombreVariable = "2";
-console.log(nombreVariable+"ads");
-let otraVariable: number;
-otraVariable = 124;
-console.log(otraVariable + 5);
-
-let verdadero: boolean;
-verdadero = true;
-
-if (otraVariable != 124) {
-    console.log("verdadero");
-} else {
-    console.log("es falso");
-}
-
-let lista: Array<string>;
-
-lista = new Array<string>();
-
-lista.push("nueva");//0
-lista.push("matias");//1
-lista.push("otra");//2
-
-for (let i in lista) {
-    console.log(lista[i]);
     
-}
-console.log(lista.length);
+window.addEventListener("load", () => {
+
+    let main1: Main = new Main();
+    let boton = document.getElementById("btnSaludar");
+
+    boton.addEventListener("click", main1);   
+
+    
 
 
-function sumar(x: number, y:number):number {
-    return x + y;
-}
-function restar(x: number, y:number):number {
-    return x - y;
-}
-
-function ejecutar(numero1: number, numero2: number, func: any) {
-    alert(func(numero1, numero2));
-}
-
-
-window.addEventListener("load",  ()=> {
-    sayHello();
-    sayHello();
-       sayHello();
-    sayHello();
-    console.log(sumar(2, 3));
 });
 
