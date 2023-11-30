@@ -1,15 +1,14 @@
-class Usuario{
-  private nombre: string;
+class Usuario extends Persona{
   private rol: string;
   private password: string;
   
-  constructor(nombre: string, rol: string, passwornd: string) {
-      this.nombre = nombre;
+  constructor(nombre: string, dni:number, rol: string, passwornd: string) {
+      super(dni, nombre);
       this.password = passwornd;
       this.rol = rol;
   }
 
   mostrar():string {
-    return `${this.nombre} - ${this.rol}`; 
+    return `${super.nombre} - ${this.rol}`; 
   }
 }
