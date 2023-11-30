@@ -2,13 +2,13 @@ class Usuario extends Persona{
   private rol: string;
   private password: string;
   
-  constructor(nombre: string, dni:number, rol: string, passwornd: string) {
-      super(dni, nombre);
+  constructor(nombre: string, rol: string, passwornd: string, dni?:number) {
+      super(nombre, dni);
       this.password = passwornd;
       this.rol = rol;
   }
 
   mostrar():string {
-    return `${super.nombre} - ${this.rol}`; 
+    return `${this.nombre} - ${this.rol}`; 
   }
 }

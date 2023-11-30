@@ -10,7 +10,7 @@ class Main implements EventListenerObject{
         this.usuarios.push(usuari1);
         this.usuarios.push(usuario2);
         for (let u of this.usuarios) {
-            console.log(u.mostrar,this.usuarios.length);
+            console.log(u.mostrar(),this.usuarios.length);
         }
     }
     handleEvent(object: Event): void {

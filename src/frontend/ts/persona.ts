@@ -2,7 +2,7 @@ class Persona{
     public nombre: string;
     private dni: number;
   
-    constructor(dni: number, nombre:string) {
+    constructor(nombre:string, dni?: number) {
       this.dni = dni;
       this.nombre = nombre
     }
