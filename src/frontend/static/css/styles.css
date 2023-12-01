@@ -9,13 +9,14 @@ main {
     flex: 1 0 auto;
 }
 div>div.col{
-    background-color: bisque;
-    border: 2px solid black;
+/*     background-color: bisque;
+    border: 2px solid black; */
 
 }
 
-#btnListar{
+.up_Btn{
     width: 100%;
+    margin: 1rem 0 0 0;
 }
 .textoError{
     width: 50%;
@@ -30,4 +31,7 @@ div>div.col{
     text-align: center;
     color: rgb(71, 161, 73);
 
+}
+main>div.container{
+    margin-top: 1rem;
 }
