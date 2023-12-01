@@ -18,6 +18,9 @@
                 <div class="nav-wrapper">
                     <a href="#!" class="brand-logo left" style="margin-left: 15px;">Smart Home</a>
                     <ul id="nav-mobile" class="right" style="margin-right: 15px;">
+                        <li><a href="#">
+                            <a class="waves-effect waves-light btn modal-trigger" href="#modal1">Log in</a>
+                        </a></li>
                         <li><a href="#">Help</a></li>
                     </ul>
                 </div>
@@ -41,16 +44,15 @@
                           <span>Prender</span>
                         </label>
                       </p>
-  <a class="waves-effect waves-light btn modal-trigger" href="#modal1">Modal</a>
 
   <!-- Modal Structure -->
   <div id="modal1" class="modal">
     <div class="modal-content">
-        <div class="col s12 m6 l6">
             <h1>Cargar usuario</h1>
-            <label for="iNombre">Nombre de usuario</label>
-            <input id="iNombre" type="text" value="" placeholder="jlopez" />
-
+            <div class="input-field">
+                <input id="iNombre" type="text" class="validate" />
+                <label for="iNombre">Nombre de usuario</label>
+            </div>
             <div class="input-field">
                 <input id="iPassword" type="password" class="validate">
                 <label for="iPassword">Password</label>
@@ -65,7 +67,6 @@
             <p id="pInfo"  ></p>
             
             <button id="btnGuardar" class="modal-close  btn">Guardar</button>
-        </div>
     </div>
    
   </div>
