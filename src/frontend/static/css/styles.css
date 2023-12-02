@@ -35,3 +35,15 @@ div>div.col{
 main>div.container{
     margin-top: 1rem;
 }
+
+.material-icons{
+    margin-right: 1rem;
+    margin-top: 0.5rem;
+    color: gray;
+}
+div.row{
+    margin-bottom: 0;
+}
+.switch label .lever {
+    margin: 0 4px;
+}

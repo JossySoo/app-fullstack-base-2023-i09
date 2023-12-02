@@ -24,32 +24,42 @@ class Main implements EventListenerObject{
                     let datos:Array<Device> = JSON.parse(respuesta);
                     
                     let ul = document.getElementById("listaDisp"); 
-
+                    let switch_status:string;
                     for (let d of datos) {
-                        let itemList =
-                            ` <li class="collection-item avatar">
-                        <img src="./static/images/lightbulb.png" alt="" class="circle">
-                        <span class="title">${d.name}</span>
-                        <p>
-                         ${d.description}
-                        </p>
-                        <a href="#!" class="secondary-content">
-                        <div class="switch">
-                        <label>
-                          Off
-                          <input type="checkbox"`;
-                          itemList +=`nuevoAtt="${d.id}" id="cb_${d.id}"`
                         if (d.state) {
-                            itemList+= ` checked `
+                            switch_status= "checked"
+                        } else {
+                            switch_status=""
                         }
-                        
-                        itemList+= `>
-                          <span class="lever"></span>
-                          On
-                        </label>
-                      </div>
-                        </a>
-                      </li>`
+
+                        let itemList =
+                        `<li class="collection-item avatar">
+                            <div class="row">
+                                <div class="col s6 m6 l6">
+                                    <img src="./static/images/lightbulb.png" alt="" class="circle">
+                                    <span class="title">${d.name}</span>
+                                    <p>${d.description}</p>
+                                </div>
+                                <div class="col s6 m6 l6">
+                                    <div class="row">
+                                        <div class="col s12 m12 l6 center">
+                                            <div class="switch">
+                                            <label>
+                                            Off
+                                            <input type="checkbox" nuevoAtt="${d.id}" id="cb_${d.id}"${switch_status}>
+                                            <span class="lever"></span>
+                                            On
+                                            </label>
+                                            </div>
+                                        </div>
+                                        <div class="col s12 m12 l6 center">
+                                            <i class="material-icons">edit</i>
+                                            <i class="material-icons">delete</i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>`
                        
                         ul.innerHTML += itemList;
 
