@@ -37,9 +37,11 @@ main>div.container{
 }
 
 .material-icons{
-    margin-right: 1rem;
-    margin-top: 0.5rem;
-    color: gray;
+    margin: 0;
+    color: white;
+}
+.edit_btn {
+    background-color: lightgrey;
 }
 div.row{
     margin-bottom: 0;

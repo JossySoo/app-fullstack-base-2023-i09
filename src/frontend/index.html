@@ -29,7 +29,7 @@
             </nav>	
         </header>
         <main>
-            <!-- Modal Structure -->
+            <!-- Modal Structures -->
             <div id="modal1" class="modal">
                 <div class="modal-content">
                     <h1>Cargar usuario</h1>
@@ -48,7 +48,25 @@
                             </label>
                         </p>
                         <p id="pInfo"  ></p>
-                        <button id="btnGuardar" class="modal-close  btn">Guardar</button>
+                        <button id="btnGuardar" class="modal-close  btn" nuevoAtt="">Guardar</button>
+                </div>
+            </div>
+            <div id="modal_edit" class="modal">
+                <div class="modal-content" id="ventana_edit">
+                    <h5>Editar Dispositivo</h5>
+                        <div class="input-field">
+                            <input id="Nombre_disp" type="text" class="validate" value="Disp prueba"/>
+                            <label for="Nombre_disp">Nombre de dispositivo</label>
+                        </div>
+                        <div class="input-field">
+                            <input id="Descripcion_disp" type="text" class="validate" value="Disp prueba desc"/>
+                            <label for="Descripcion_disp">Descripción de dispositivo</label>
+                        </div>
+                        <div class="input-field">
+                            <input id="Tipo_disp" type="text" class="validate" value="2"/>
+                            <label for="Tipo_disp">Tipo de dispositivo</label>
+                        </div>
+                        <button id="btnGuardarDev" class="modal-close  btn">Guardar Cambios</button>
                 </div>
             </div>
             <!-- Page Body -->
