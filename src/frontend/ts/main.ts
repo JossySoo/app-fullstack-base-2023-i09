@@ -177,7 +177,8 @@ class Main implements EventListenerObject{
         xmlRequest.onreadystatechange = () => {
             if (xmlRequest.readyState == 4) {
                 if (xmlRequest.status == 200) {
-                    console.log("llego respuesta",xmlRequest.responseText);        
+                    console.log("llego respuesta",xmlRequest.responseText);
+                    this.buscarDevices();      
                 } else {
                     alert("Salio mal el post");
                 }
@@ -206,7 +207,8 @@ class Main implements EventListenerObject{
         xmlRequest.onreadystatechange = () => {
             if (xmlRequest.readyState == 4) {
                 if (xmlRequest.status == 200) {
-                    console.log("llego respuesta",xmlRequest.responseText);        
+                    console.log("llego respuesta",xmlRequest.responseText);  
+                    this.buscarDevices();
                 } else {
                     alert("Salio mal el post");
                 }
@@ -222,6 +224,7 @@ class Main implements EventListenerObject{
             type: parseInt(select_type.value) };
         console.log("post: ",s);
         xmlRequest.send(JSON.stringify(s));
+
     }
 
     private deleteDevices (dev_id:number) {
@@ -230,7 +233,8 @@ class Main implements EventListenerObject{
         xmlRequest.onreadystatechange = () => {
             if (xmlRequest.readyState == 4) {
                 if (xmlRequest.status == 200) {
-                    console.log("llego respuesta",xmlRequest.responseText);        
+                    console.log("llego respuesta",xmlRequest.responseText);
+                    this.buscarDevices();      
                 } else {
                     alert("Salio mal el post");
                 }
@@ -239,6 +243,7 @@ class Main implements EventListenerObject{
         xmlRequest.open("POST", "http://localhost:8000/delete_device", true);
         xmlRequest.setRequestHeader("Content-Type", "application/json"); 
         xmlRequest.send(JSON.stringify({id:dev_id}));
+
     }
 
     handleEvent(object: Event): void {
@@ -248,7 +253,6 @@ class Main implements EventListenerObject{
         if ("btnListar" == elemento.id) {
             this.buscarDevices();
 
-            
         } else if ("btnGuardar" == elemento.id) {
             this.cargarUsuario();
         } else if (elemento.id.startsWith("cb_")) {
@@ -261,10 +265,11 @@ class Main implements EventListenerObject{
             this.editDevices(parseInt(edit_btn.getAttribute("nuevoAtt")));
         } else if (elemento.id.startsWith("delete_")) {
             let delete_btn = <HTMLElement>elemento;
-            this.deleteDevices(parseInt(delete_btn.getAttribute("nuevoAtt")));
+            this.deleteDevices(parseInt(delete_btn.getAttribute("nuevoAtt")))
         } else if ("btnGuardarDev" == elemento.id) {
             let botonGuardarDev = <HTMLElement>elemento;
             this.saveEdit(parseInt(botonGuardarDev.getAttribute("nuevoAtt")));
+            console.log("Refresh");
         } else if ("btnAgregar" == elemento.id) {
             this.saveNew();
         }
@@ -295,7 +300,7 @@ window.addEventListener("load", () => {
     let botonNewDev = document.getElementById("btnAgregar");
     botonNewDev.addEventListener("click",main1);
     
-    main1.buscarDevices()
+    main1.buscarDevices();
 
 });
 
