@@ -33,14 +33,7 @@ app.get("/otraCosa/:id",(req,res,next)=>{
     });
     
 });
-app.post("/device",(req,res,next)=>{
-/*     console.log("Llego el post",
-    "UPDATE Devices SET state = "+req.body.state+" WHERE id = "+req.body.id);
-    if(req.body.name==""){
-        res.status(409).send("no tengo nada que hacer");
-    }else{
-        res.status(200).send("se guardo el dispositivo");
-    } */
+app.post("/device_state",(req,res,next)=>{
     utils.query("UPDATE Devices SET state="+req.body.state+" WHERE id = "+req.body.id,(err,rsp,fields)=>{
         if(err==null){
             console.log("rsp",rsp);
@@ -50,8 +43,20 @@ app.post("/device",(req,res,next)=>{
             res.status(409).send(err);
         }
     });
-    
 });
+
+app.post("/device",(req,res,next)=>{
+    utils.query("UPDATE Devices SET name='"+req.body.name+"', description='"+req.body.description+"', type="+req.body.type+" WHERE id = "+req.body.id,(err,rsp,fields)=>{
+        if(err==null){
+            console.log("rsp",rsp);
+            res.status(200).send(JSON.stringify(rsp));
+        }else{
+            console.log("err",err);
+            res.status(409).send(err) ;
+        }
+    });
+});
+
 app.get('/devices/', function(req, res, next) {
 
     utils.query("select * from Devices",(err,rsp,fields)=>{

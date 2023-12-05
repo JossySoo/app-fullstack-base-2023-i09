@@ -99,12 +99,9 @@ class Main implements EventListenerObject{
                     alert("Salio mal la consulta");
                 }
             }
-            
-            
-
         }
         
-        xmlRequest.open("POST", "http://localhost:8000/device", true)
+        xmlRequest.open("POST", "http://localhost:8000/device_state", true)
         xmlRequest.setRequestHeader("Content-Type", "application/json");
         let s = {
             id: id,
@@ -127,7 +124,7 @@ class Main implements EventListenerObject{
             pInfo.className ="textoCorrecto";
             
         } else {
-            pInfo.innerHTML = "Usuairo o contraseña incorrecta!!!";
+            pInfo.innerHTML = "Usuario o contraseña incorrecta!!!";
             pInfo.className ="textoError";
         }
         
@@ -170,9 +167,31 @@ class Main implements EventListenerObject{
     
     }
 
-    private saveEdit () {
-        let iNombre =<HTMLInputElement> document.getElementById("iNombre");
-        let iPassword = <HTMLInputElement>document.getElementById("iPassword");
+    private saveEdit (dev_id:number) {
+        let input_nombre =<HTMLInputElement>document.getElementById("Nombre_disp");
+        let input_description =<HTMLInputElement>document.getElementById("Descripcion_disp");
+        let input_type =<HTMLInputElement>document.getElementById("Tipo_disp");
+
+        let xmlRequest = new XMLHttpRequest();
+
+        xmlRequest.onreadystatechange = () => {
+            if (xmlRequest.readyState == 4) {
+                if (xmlRequest.status == 200) {
+                    console.log("llego resputa",xmlRequest.responseText);        
+                } else {
+                    alert("Salio mal el post");
+                }
+            }
+        }
+        
+        xmlRequest.open("POST", "http://localhost:8000/device", true)
+        xmlRequest.setRequestHeader("Content-Type", "application/json");
+        let s = {
+            id:dev_id,
+            name:input_nombre.value,
+            description:input_description.value,
+            type: input_type.value };
+        xmlRequest.send(JSON.stringify(s)) ;
     }
 
     handleEvent(object: Event): void {
@@ -196,6 +215,9 @@ class Main implements EventListenerObject{
         } else if (elemento.id.startsWith("delete_")) {
             let delete_btn = <HTMLElement>elemento;
             console.log("Editar dispositivo ",delete_btn.getAttribute("nuevoAtt"));
+        } else if ("btnGuardarDev" == elemento.id) {
+            let botonGuardarDev = <HTMLElement>elemento;
+            this.saveEdit(parseInt(botonGuardarDev.getAttribute("nuevoAtt")))
         }
 
     }
@@ -220,6 +242,9 @@ window.addEventListener("load", () => {
 
     let checkbox = document.getElementById("cb");
     checkbox.addEventListener("click", main1);
+
+    let botonGuardarDev = document.getElementById("btnGuardarDev");
+    botonGuardarDev.addEventListener("click",main1);
     
     main1.buscarDevices()
 
