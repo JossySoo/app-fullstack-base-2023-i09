@@ -197,6 +197,35 @@ class Main implements EventListenerObject{
         xmlRequest.send(JSON.stringify(s)) ;
     }
 
+    private saveNew () {
+        let input_nombre =<HTMLInputElement>document.getElementById("Nombre_new");
+        let input_description =<HTMLInputElement>document.getElementById("Descripcion_new");
+        let select_type =<HTMLSelectElement>document.getElementById("Tipo_new");
+        let checkbox = <HTMLInputElement>document.getElementById("checkbox_new");
+
+        let xmlRequest = new XMLHttpRequest();
+
+        xmlRequest.onreadystatechange = () => {
+            if (xmlRequest.readyState == 4) {
+                if (xmlRequest.status == 200) {
+                    console.log("llego resputa",xmlRequest.responseText);        
+                } else {
+                    alert("Salio mal el post");
+                }
+            }
+        }
+        
+        xmlRequest.open("POST", "http://localhost:8000/device_new", true);
+        xmlRequest.setRequestHeader("Content-Type", "application/json"); 
+        let s = {
+            name:input_nombre.value,
+            description:input_description.value,
+            state: checkbox.checked,
+            type: parseInt(select_type.value) };
+        console.log("post: ",s);
+        xmlRequest.send(JSON.stringify(s));
+    }
+
     handleEvent(object: Event): void {
         let elemento = <HTMLElement>object.target;
         
@@ -210,8 +239,8 @@ class Main implements EventListenerObject{
         } else if (elemento.id.startsWith("cb_")) {
             let checkbox = <HTMLInputElement>elemento;
             console.log(checkbox.getAttribute("nuevoAtt"),checkbox.checked, elemento.id.substring(3, elemento.id.length));
-            
             this.ejecutarPost(parseInt(checkbox.getAttribute("nuevoAtt")),checkbox.checked);
+
         } else if (elemento.id.startsWith("edit_")) {
             let edit_btn = <HTMLElement>elemento;
             this.editDevices(parseInt(edit_btn.getAttribute("nuevoAtt")));
@@ -220,7 +249,9 @@ class Main implements EventListenerObject{
             console.log("Editar dispositivo ",delete_btn.getAttribute("nuevoAtt"));
         } else if ("btnGuardarDev" == elemento.id) {
             let botonGuardarDev = <HTMLElement>elemento;
-            this.saveEdit(parseInt(botonGuardarDev.getAttribute("nuevoAtt")))
+            this.saveEdit(parseInt(botonGuardarDev.getAttribute("nuevoAtt")));
+        } else if ("btnAgregar" == elemento.id) {
+            this.saveNew();
         }
 
     }
@@ -243,11 +274,11 @@ window.addEventListener("load", () => {
     let botonGuardar = document.getElementById("btnGuardar");
     botonGuardar.addEventListener("click",main1);
 
-    let checkbox = document.getElementById("cb");
-    checkbox.addEventListener("click", main1);
-
     let botonGuardarDev = document.getElementById("btnGuardarDev");
     botonGuardarDev.addEventListener("click",main1);
+
+    let botonNewDev = document.getElementById("btnAgregar");
+    botonNewDev.addEventListener("click",main1);
     
     main1.buscarDevices()
 

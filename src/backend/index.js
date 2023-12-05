@@ -57,6 +57,28 @@ app.post("/device",(req,res,next)=>{
     });
 });
 
+app.post("/device_new",(req,res,next)=>{
+    let new_id;
+    utils.query("SELECT MAX(ID) FROM Devices",(err,rsp,fields)=>{
+        if(err==null){
+            new_id=rsp[0]["MAX(ID)"]+1;
+            utils.query(`INSERT INTO Devices (id, name, description,state,type) VALUES (${new_id}, '${req.body.name}', '${req.body.description}',${req.body.state},${req.body.type})`,
+            (err,rsp,fields)=>{
+                if(err==null){
+                    console.log("rsp",rsp);
+                    res.status(200).send(JSON.stringify(rsp));
+                }else{
+                    console.log("err",err);
+                    res.status(409).send(err);
+                }
+            });
+        }else{
+            console.log("err",err);
+            res.status(409).send(err);
+        }
+    });
+});
+
 app.get('/devices/', function(req, res, next) {
 
     utils.query("select * from Devices",(err,rsp,fields)=>{

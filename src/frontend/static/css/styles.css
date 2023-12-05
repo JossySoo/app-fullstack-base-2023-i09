@@ -49,3 +49,7 @@ div.row{
 .switch label .lever {
     margin: 0 4px;
 }
+
+div.switch {
+    margin-bottom: 10px;
+}

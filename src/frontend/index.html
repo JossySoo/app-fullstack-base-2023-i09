@@ -43,7 +43,7 @@
                         </div>
                         <p>
                             <label>
-                            <input type="checkbox"  />
+                            <input type="checkbox" />
                             <span>Recordar usuario y contraseña</span>
                             </label>
                         </p>
@@ -52,7 +52,7 @@
                 </div>
             </div>
             <div id="modal_edit" class="modal">
-                <div class="modal-content" id="ventana_edit">
+                <div class="modal-content">
                     <h5>Editar Dispositivo</h5>
                         <div class="input-field">
                             <input id="Nombre_disp" type="text" class="validate" value="Disp prueba"/>
@@ -70,9 +70,41 @@
                             <option value="2">Audio</option>
                             <option value="3">TV</option>
                             </select>
-                            <label for="Tipo_disp">Tipo de dispositivo</label>
+                            <label for="select_tipo">Tipo de dispositivo</label>
                         </div>
                         <button id="btnGuardarDev" class="modal-close  btn" nuevoAtt="">Guardar Cambios</button>
+                </div>
+            </div>
+            <div id="modal_new" class="modal">
+                <div class="modal-content">
+                    <h5>Crear Dispositivo</h5>
+                        <div class="input-field">
+                            <input id="Nombre_new" type="text" class="validate"/>
+                            <label for="Nombre_new">Nombre de dispositivo</label>
+                        </div>
+                        <div class="input-field">
+                            <input id="Descripcion_new" type="text" class="validate"/>
+                            <label for="Descripcion_new">Descripción de dispositivo</label>
+                        </div>
+                        <div class="input-field">
+                            <select id="Tipo_new">
+                            <option value="" disabled selected>Choose your option</option>
+                            <option value="0">Luz</option>
+                            <option value="1">Persiana</option>
+                            <option value="2">Audio</option>
+                            <option value="3">TV</option>
+                            </select>
+                            <label for="Tipo_new">Tipo de dispositivo</label>
+                        </div>
+                        <div class="switch">
+                            <label>
+                            Off
+                            <input type="checkbox" id="checkbox_new">
+                            <span class="lever"></span>
+                            On
+                            </label>
+                            </div>
+                        <button id="btnAgregar" class="modal-close  btn">Guardar Cambios</button>
                 </div>
             </div>
             <!-- Page Body -->
@@ -85,26 +117,17 @@
                         <button class="btn waves-effect waves-light button-view up_Btn" id="btnListar" name="hello_button">Refresh</button>
                     </div>
                     <div class="col s6 m6 l2">
-                        <button class="btn waves-effect waves-light button-view up_Btn" id="btnNewDevice" name="hello_button">+ New Device</button>
+                        <button class="btn waves-effect waves-light button-view up_Btn modal-trigger" id="btnNewDevice" name="hello_button" href="#modal_new">+ New Device</button>
                     </div>
                 </div>
 
                 <div class="row">
-                    <div id="lista" miAtt="true" class="col s12 m12 l12">
+                    <div id="lista" class="col s12 m12 l12">
                         <ul class="collection" id="listaDisp">
 
                         </ul>
-                        <p>
-                            <label>
-                              <input type="checkbox" id="cb"  />
-                              <span>Prender</span>
-                            </label>
-                        </p>
                     </div>   
                 </div>
-                <br/>
-                <h3>Smart Home Web Client!</h3>
-                <br/>
 
             </div>	
         </main>
