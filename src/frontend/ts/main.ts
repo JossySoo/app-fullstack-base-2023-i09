@@ -127,8 +127,6 @@ class Main implements EventListenerObject{
             pInfo.innerHTML = "Usuario o contraseña incorrecta!!!";
             pInfo.className ="textoError";
         }
-        
-        
     }
 
     private editDevices(dev_id:number):void {
@@ -179,7 +177,7 @@ class Main implements EventListenerObject{
         xmlRequest.onreadystatechange = () => {
             if (xmlRequest.readyState == 4) {
                 if (xmlRequest.status == 200) {
-                    console.log("llego resputa",xmlRequest.responseText);        
+                    console.log("llego respuesta",xmlRequest.responseText);        
                 } else {
                     alert("Salio mal el post");
                 }
@@ -208,7 +206,7 @@ class Main implements EventListenerObject{
         xmlRequest.onreadystatechange = () => {
             if (xmlRequest.readyState == 4) {
                 if (xmlRequest.status == 200) {
-                    console.log("llego resputa",xmlRequest.responseText);        
+                    console.log("llego respuesta",xmlRequest.responseText);        
                 } else {
                     alert("Salio mal el post");
                 }
@@ -224,6 +222,23 @@ class Main implements EventListenerObject{
             type: parseInt(select_type.value) };
         console.log("post: ",s);
         xmlRequest.send(JSON.stringify(s));
+    }
+
+    private deleteDevices (dev_id:number) {
+        let xmlRequest = new XMLHttpRequest();
+
+        xmlRequest.onreadystatechange = () => {
+            if (xmlRequest.readyState == 4) {
+                if (xmlRequest.status == 200) {
+                    console.log("llego respuesta",xmlRequest.responseText);        
+                } else {
+                    alert("Salio mal el post");
+                }
+            }
+        }
+        xmlRequest.open("POST", "http://localhost:8000/delete_device", true);
+        xmlRequest.setRequestHeader("Content-Type", "application/json"); 
+        xmlRequest.send(JSON.stringify({id:dev_id}));
     }
 
     handleEvent(object: Event): void {
@@ -246,7 +261,7 @@ class Main implements EventListenerObject{
             this.editDevices(parseInt(edit_btn.getAttribute("nuevoAtt")));
         } else if (elemento.id.startsWith("delete_")) {
             let delete_btn = <HTMLElement>elemento;
-            console.log("Editar dispositivo ",delete_btn.getAttribute("nuevoAtt"));
+            this.deleteDevices(parseInt(delete_btn.getAttribute("nuevoAtt")));
         } else if ("btnGuardarDev" == elemento.id) {
             let botonGuardarDev = <HTMLElement>elemento;
             this.saveEdit(parseInt(botonGuardarDev.getAttribute("nuevoAtt")));

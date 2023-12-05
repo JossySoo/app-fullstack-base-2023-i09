@@ -79,6 +79,18 @@ app.post("/device_new",(req,res,next)=>{
     });
 });
 
+app.post("/delete_device",(req,res,next)=>{
+    utils.query("DELETE FROM Devices WHERE ID="+req.body.id,(err,rsp,fields)=>{
+        if(err==null){
+            console.log("rsp",rsp);
+            res.status(200).send(JSON.stringify(rsp));
+        }else{
+            console.log("err",err);
+            res.status(409).send(err) ;
+        }
+    });
+});
+
 app.get('/devices/', function(req, res, next) {
 
     utils.query("select * from Devices",(err,rsp,fields)=>{
