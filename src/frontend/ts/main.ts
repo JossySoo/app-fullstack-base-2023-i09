@@ -150,8 +150,10 @@ class Main implements EventListenerObject{
                     let input_description =<HTMLInputElement>document.getElementById("Descripcion_disp");
                     input_description.value = device.description
 
-                    let input_type =<HTMLInputElement>document.getElementById("Tipo_disp");
-                    input_type.value = String(device.type);
+                    let select_type =<HTMLSelectElement>document.getElementById("select_tipo");
+                    select_type.value = String(device.type);
+                    M.FormSelect.init(select_type);
+                    console.log("El valor del select es ",select_type.value);
 
                     let btn_guardar =<HTMLElement>document.getElementById("btnGuardarDev");
                     btn_guardar.setAttribute("nuevoAtt",String(dev_id))
@@ -170,7 +172,7 @@ class Main implements EventListenerObject{
     private saveEdit (dev_id:number) {
         let input_nombre =<HTMLInputElement>document.getElementById("Nombre_disp");
         let input_description =<HTMLInputElement>document.getElementById("Descripcion_disp");
-        let input_type =<HTMLInputElement>document.getElementById("Tipo_disp");
+        let select_type =<HTMLSelectElement>document.getElementById("select_tipo");
 
         let xmlRequest = new XMLHttpRequest();
 
@@ -190,7 +192,8 @@ class Main implements EventListenerObject{
             id:dev_id,
             name:input_nombre.value,
             description:input_description.value,
-            type: input_type.value };
+            type: parseInt(select_type.value) };
+        console.log("post: ",s)
         xmlRequest.send(JSON.stringify(s)) ;
     }
 

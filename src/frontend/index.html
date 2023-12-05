@@ -63,7 +63,13 @@
                             <label for="Descripcion_disp">Descripción de dispositivo</label>
                         </div>
                         <div class="input-field">
-                            <input id="Tipo_disp" type="text" class="validate" value="2"/>
+                            <select id="select_tipo">
+                            <option value="" disabled selected>Choose your option</option>
+                            <option value="0">Luz</option>
+                            <option value="1">Persiana</option>
+                            <option value="2">Audio</option>
+                            <option value="3">TV</option>
+                            </select>
                             <label for="Tipo_disp">Tipo de dispositivo</label>
                         </div>
                         <button id="btnGuardarDev" class="modal-close  btn" nuevoAtt="">Guardar Cambios</button>
@@ -95,16 +101,6 @@
                             </label>
                         </p>
                     </div>   
-                </div>
-                   
-                <div class="input-field col s12">
-                        <select>
-                          <option value="" disabled selected>Choose your option</option>
-                          <option value="0">Luz</option>
-                          <option value="1">Persiana</option>
-                          <option value="2">Audio</option>
-                          <option value="3">TV</option>
-                        </select>
                 </div>
                 <br/>
                 <h3>Smart Home Web Client!</h3>
