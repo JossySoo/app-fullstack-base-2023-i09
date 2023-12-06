@@ -1,7 +1,3 @@
-<a href="https://www.gotoiot.com/">
-    <img src="doc/gotoiot-logo.png" alt="logo" title="Goto IoT" align="right" width="60" height="60" />
-</a>
-
 Web App Full Stack Base
 =======================
 
@@ -9,11 +5,9 @@ Web App Full Stack Base
 
 Este proyecto es una aplicación web fullstack que se ejecuta sobre el ecosistema `Docker`. Está compuesta por un compilador de `TypeScript` que te permite utilizar este superset de JavaScript para poder programar un `cliente web`. También tiene un servicio en `NodeJS` que te permite ejecutar código en backend y al mismo tiempo disponibilizar el código del cliente web para interactar con el servicio. Además tiene una `base de datos` MySQL que puede interactuar con el backend para guardar y consultar datos, y de manera adicional trae un `administrador` de base de datos para poder administrar la base en caso que lo necesites.
 
-La aplicación IoT de base que viene con este proyecto se encarga de crear una tabla llamada `Devices` en la base de datos, y la idea es que vos puedas desarrollar el código de backend y frontend que te permita controlar desde el navegador el estado de los devices de un hogar inteligente - *como pueden ser luces, TVs, ventiladores, persianas, enchufes y otros* - y almacenar los estados de cada uno en la base de datos. 
+La aplicación IoT de base que viene con este proyecto se encarga de crear una tabla llamada `Devices` en la base de datos, y permite controlar desde el navegador el estado de los devices de un hogar inteligente - *como pueden ser luces, TVs, ventiladores, persianas, parlantes y otros* - y almacenar los estados de cada uno en la base de datos. 
 
-Realizando estas tareas vas a a tener una aplicación fullstack IoT del mundo real que utiliza tecnologías actuales en la que un backend es capaz de interactuar con una DB para cumplir con las peticiones de control que se le mandan desde el cliente web.
-
-En esta imagen podés ver una posible implementación del cliente web que controla los artefactos del hogar.
+En esta imagen se puede previsualizar la web tanto en pantalla de PC como de celular.
 
 ![architecture](doc/Página_Large.png)
 ![architecture](doc/Página_celular.png)
@@ -28,7 +22,7 @@ Esta sección es una guía con los pasos escenciales para que puedas poner en ma
 
 Para correr este proyecto es necesario que instales `Docker` y `Docker Compose`. 
 
-En [este artículo](https://www.gotoiot.com/pages/articles/docker_installation_linux/) publicado en nuestra web están los detalles para instalar Docker y Docker Compose en una máquina Linux. Si querés instalar ambas herramientas en una Raspberry Pi podés seguir [este artículo](https://www.gotoiot.com/pages/articles/rpi_docker_installation) de nuestra web que te muestra todos los pasos necesarios.
+En [este artículo](https://www.gotoiot.com/pages/articles/docker_installation_linux/) publicado en nuestra web están los detalles para instalar Docker y Docker Compose en una máquina Linux.
 
 En caso que quieras instalar las herramientas en otra plataforma o tengas algún incoveniente, podes leer la documentación oficial de [Docker](https://docs.docker.com/get-docker/) y también la de [Docker Compose](https://docs.docker.com/compose/install/).
 
@@ -146,20 +140,25 @@ En la siguiente ilustración podés ver cómo está organizado el proyecto para 
 ├── CHANGELOG.md                # archivo para guardar los cambios del proyecto
 ├── LICENSE.md                  # licencia del proyecto
 ```
-
-> No olvides ir poniendo tus cambios en el archivo `CHANGELOG.md` a medida que avanzas en el proyecto.
-
 </details>
 
 ## Detalles de implementación 💻
 
-En esta sección podés ver los detalles específicos de funcionamiento del código y que son los siguientes.
+En esta sección podés ver los detalles específicos de funcionamiento del código.
 
 <details><summary><b>Mira los detalles de implementación</b></summary><br>
 
 ### Agregar un dispositivo
 
-Completá los pasos para agregar un dispositivo desde el cliente web.
+Se cuenta con un botón "+ New Device", el cual abre un formulario en el que se pueden completar los campos de un dispositivo. Con el botón "Guardar Cambios" se ejecuta el post "/device_new", con el cual se hace un INSERT del nuevo dispositivo en la tabla DEVICES de la base de datos. Luego, una vez se recibe la respuesta del backend, se ejecuta la función buscarDevices() para actualizar la lista de dispositivos en la página.
+
+### Editar dispositivos
+
+Cada dispositivo tiene un botón con el ícono de editar con el cual se puede modificar el nombre, la descripción o el tipo de dispositivo. Esto se hace mediante un formulario modal, que carga automáticamente los valores actuales del dispositivo mediante el get "/one_device/:id", dejando que el usuario pueda editar sobre lo que ya está guardado en la base de datos. Con el botón "Guardar Cambios" se ejecuta el post "/device" que actualiza los campos del dispositivo según se encuentran en el formulario. Luego, también se ejecuta la actualización de la lista de dispositivos en la web.
+Si se quiere editar el estado del dispositivo (predido/apagado), se realiza a través del switch, el cual ejecuta el post "/device_state" en el backend.
+
+### Editar dispositivos
+Cada dispositivo tiene un botón con el ícono para eliminarlo, el cual ejecuta el post "/delete_device" que elimina el dispositivo de la base de datos. Una vez eliminado, desde el frontend se actualiza la lista de dispositivos con la función buscarDevices() .
 
 ### Frontend
 
