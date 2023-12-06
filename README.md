@@ -155,16 +155,16 @@ La funcionalidad para agregar un nuevo dispositivo funciona de esta manera:
 </br>
 Frontend: 
 <ul>
-    <li>El botón "+ New Device" id="btnNewDevice" ejecuta el modal en el que se pueden completar los campos de un dispositivo</li>
+    <li>El botón "+ New Device" id="btnNewDevice" ejecuta el modal en el que se pueden completar los campos de un dispositivo.</li>
     <li> Dentro del formulario se tienen 3 inputs para el nombre, la descripción y el estado del dispositivo, y un elemento select para el tipo. </li>
-    <li>El botón id="btnGuardar" ejecuta la función saveNew () que envía los datos de los inputs al backend</li>
+    <li>El botón id="btnGuardar" ejecuta la función saveNew () que envía los datos de los inputs al backend.</li>
     <li>Cuando se recibe la respuesta afirmativa del backend, se vuelve a ejecutar la función buscarDevices() para actualizar la lista de dispositivos con los cambios.</li>
 </ul>
 </br>
 Backend: 
 <ul>
-    <li>Se ejecuta el post "/device_new" el cual primero consulta cuál es el máximo número de id utilizado en la base de datos, y le asigna al nuevo dispositivo este id +1</li>
-    <li>Luego, este post hace in insert en la tabla Devices con el id creado y los datos que vinieron del frontend </li>
+    <li>Se ejecuta el post "/device_new" el cual primero consulta cuál es el máximo número de id utilizado en la base de datos, y le asigna al nuevo dispositivo este id +1.</li>
+    <li>Luego, este post hace in insert en la tabla Devices con el id creado y los datos que vinieron del frontend. </li>
 </ul>
 
 ### Editar dispositivos
