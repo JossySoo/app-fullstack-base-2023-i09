@@ -150,7 +150,7 @@ En esta sección podés ver los detalles específicos de funcionamiento del cód
 
 ### Agregar un dispositivo
 
-La funcionalidad para agragar un nuevo dispositivo funciona de esta manera:
+La funcionalidad para agragar un nuevo dispositivo funciona de esta manera: 
 </br>
 Frontend: 
 <ul>
