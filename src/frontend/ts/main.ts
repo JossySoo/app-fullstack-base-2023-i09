@@ -162,7 +162,7 @@ class Main implements EventListenerObject{
             }
             
         }
-        xmlRequest.open("GET",`http://localhost:8000/otraCosa/${dev_id}`,true)
+        xmlRequest.open("GET",`http://localhost:8000/one_device/${dev_id}`,true)
         xmlRequest.send();
     
     }
