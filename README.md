@@ -1,7 +1,3 @@
-<a href="https://www.gotoiot.com/">
-    <img src="doc/gotoiot-logo.png" alt="logo" title="Goto IoT" align="right" width="60" height="60" />
-</a>
-
 Web App Full Stack Base
 =======================
 
@@ -9,13 +5,12 @@ Web App Full Stack Base
 
 Este proyecto es una aplicación web fullstack que se ejecuta sobre el ecosistema `Docker`. Está compuesta por un compilador de `TypeScript` que te permite utilizar este superset de JavaScript para poder programar un `cliente web`. También tiene un servicio en `NodeJS` que te permite ejecutar código en backend y al mismo tiempo disponibilizar el código del cliente web para interactar con el servicio. Además tiene una `base de datos` MySQL que puede interactuar con el backend para guardar y consultar datos, y de manera adicional trae un `administrador` de base de datos para poder administrar la base en caso que lo necesites.
 
-La aplicación IoT de base que viene con este proyecto se encarga de crear una tabla llamada `Devices` en la base de datos, y la idea es que vos puedas desarrollar el código de backend y frontend que te permita controlar desde el navegador el estado de los devices de un hogar inteligente - *como pueden ser luces, TVs, ventiladores, persianas, enchufes y otros* - y almacenar los estados de cada uno en la base de datos. 
+La aplicación IoT de base que viene con este proyecto se encarga de crear una tabla llamada `Devices` en la base de datos, y permite controlar desde el navegador el estado de los devices de un hogar inteligente - *como pueden ser luces, TVs, ventiladores, persianas, parlantes y otros* - y almacenar los estados de cada uno en la base de datos. 
 
-Realizando estas tareas vas a a tener una aplicación fullstack IoT del mundo real que utiliza tecnologías actuales en la que un backend es capaz de interactuar con una DB para cumplir con las peticiones de control que se le mandan desde el cliente web.
+En esta imagen se puede previsualizar la web tanto en pantalla de PC como de celular. Esta web se adapta al tamaño de pantalla de los dispositivos. Adicionalmente, se le agregaron 3 funcionalidades nuevas: 1) agregar un dispositivo, 2) editar dispositivos y 3) eliminar dispositivos. El detalle de estas funcionalidades se puede ver más abajo en la sección "Detalles de implementación".
 
-En esta imagen podés ver una posible implementación del cliente web que controla los artefactos del hogar.
-
-![architecture](doc/webapp-example-1.png)
+![architecture](doc/Página_Large.png)
+![architecture](doc/Página_celular.png)
 
 ## Comenzando 🚀
 
@@ -27,7 +22,7 @@ Esta sección es una guía con los pasos escenciales para que puedas poner en ma
 
 Para correr este proyecto es necesario que instales `Docker` y `Docker Compose`. 
 
-En [este artículo](https://www.gotoiot.com/pages/articles/docker_installation_linux/) publicado en nuestra web están los detalles para instalar Docker y Docker Compose en una máquina Linux. Si querés instalar ambas herramientas en una Raspberry Pi podés seguir [este artículo](https://www.gotoiot.com/pages/articles/rpi_docker_installation) de nuestra web que te muestra todos los pasos necesarios.
+En [este artículo](https://www.gotoiot.com/pages/articles/docker_installation_linux/) publicado en nuestra web están los detalles para instalar Docker y Docker Compose en una máquina Linux.
 
 En caso que quieras instalar las herramientas en otra plataforma o tengas algún incoveniente, podes leer la documentación oficial de [Docker](https://docs.docker.com/get-docker/) y también la de [Docker Compose](https://docs.docker.com/compose/install/).
 
@@ -145,57 +140,68 @@ En la siguiente ilustración podés ver cómo está organizado el proyecto para 
 ├── CHANGELOG.md                # archivo para guardar los cambios del proyecto
 ├── LICENSE.md                  # licencia del proyecto
 ```
-
-> No olvides ir poniendo tus cambios en el archivo `CHANGELOG.md` a medida que avanzas en el proyecto.
-
 </details>
 
 ## Detalles de implementación 💻
 
-En esta sección podés ver los detalles específicos de funcionamiento del código y que son los siguientes.
+En esta sección podés ver los detalles específicos de funcionamiento del código.
 
 <details><summary><b>Mira los detalles de implementación</b></summary><br>
 
 ### Agregar un dispositivo
 
-Completá los pasos para agregar un dispositivo desde el cliente web.
+La funcionalidad para agregar un nuevo dispositivo funciona de esta manera:
 
-### Frontend
+</br>
+Frontend: 
+<ul>
+    <li>El botón "+ New Device" id="btnNewDevice" ejecuta el modal en el que se pueden completar los campos de un dispositivo.</li>
+    <li> Dentro del formulario se tienen 3 inputs para el nombre, la descripción y el estado del dispositivo, y un elemento select para el tipo. </li>
+    <li>El botón id="btnGuardar" ejecuta la función saveNew () que envía los datos de los inputs al backend.</li>
+    <li>Cuando se recibe la respuesta afirmativa del backend, se vuelve a ejecutar la función buscarDevices() para actualizar la lista de dispositivos con los cambios.</li>
+</ul>
+</br>
+Backend: 
+<ul>
+    <li>Se ejecuta el post "/device_new" el cual primero consulta cuál es el máximo número de id utilizado en la base de datos, y le asigna al nuevo dispositivo este id +1.</li>
+    <li>Luego, este post hace in insert en la tabla Devices con el id creado y los datos que vinieron del frontend. </li>
+</ul>
 
-Completá todos los detalles sobre cómo armaste el frontend, sus interacciones, etc.
+### Editar dispositivos
 
-### Backend
+Cada dispositivo tiene un botón con el ícono de editar con el cual se puede modificar el nombre, la descripción o el tipo de dispositivo. Esto se hace de esta manera:
 
-Completá todos los detalles de funcionamiento sobre el backend, sus interacciones con el cliente web, la base de datos, etc.
+</br>
+Frontend: 
+<ul>
+    <li>Al momento en que se cargan los dispositivos con la función buscarDevices(), se genera un botón de edición para cada dispositivo. </li>
+    <li>El botón de edición ejecuta el modal y la función editDevices(dev_id:number) que trae los datos actuales del device de la BD.</li>
+    <li>Dentro del formulario (id="modal_new") se tienen 2 inputs para el nombre, la descripción y un elemento select para el tipo. </li>
+    <li>El botón id="btnGuardarDev" ejecuta la función saveEdit(dev_id:number), que envía los nuevos datos al backend y cierra el modal.</li>
+    <li>Cuando se recibe la respuesta afirmativa del backend, se vuelve a ejecutar la función buscarDevices() para actualizar la lista de dispositivos con los cambios.</li>
+</ul>
+</br>
+Backend: 
+<ul>
+    <li>Se ejecuta el get "/one_device/:id" para enviar los datos actuales del dispositivo al formulario.</li>
+    <li>Se ejecuta el post "/device" para hacer un UPDATE a los campos del dispositivo según la información recibida del formulario del frontend. </li>
+</ul>
 
-<details><summary><b>Ver los endpoints disponibles</b></summary><br>
+### Eliminar dispositivos
+Cada dispositivo tiene un botón con el ícono para eliminarlo que funciona así:
 
-Completá todos los endpoints del backend con los metodos disponibles, los headers y body que recibe, lo que devuelve, ejemplos, etc.
-
-1) Devolver el estado de los dispositivos.
-
-```json
-{
-    "method": "get",
-    "request_headers": "application/json",
-    "request_body": "",
-    "response_code": 200,
-    "request_body": {
-        "devices": [
-            {
-                "id": 1,
-                "status": true,
-                "description": "Kitchen light"
-            }
-        ]
-    },
-}
-``` 
-
-</details>
-
-</details>
-
+</br>
+Frontend: 
+<ul>
+    <li>Al momento en que se cargan los dispositivos con la función deleteDevices(dev_id:number), se genera un botón de edición para cada dispositivo.</li>
+    <li>Este botón envía el id del dispositivo a eliminar al backend.</li>
+    <li>Cuando se recibe la respuesta afirmativa del backend, se vuelve a ejecutar la función buscarDevices() para actualizar la lista de dispositivos con los cambios.</li>
+</ul>
+</br>
+Backend: 
+<ul>
+    <li>Se ejecuta el post "/delete_device" que elimina el dispositivo de la base de datos. </li>
+</ul>
 
 ## Tecnologías utilizadas 🛠️
 
