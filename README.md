@@ -150,52 +150,54 @@ En esta sección podés ver los detalles específicos de funcionamiento del cód
 
 ### Agregar un dispositivo
 
-Se cuenta con un botón "+ New Device", el cual abre un formulario en el que se pueden completar los campos de un dispositivo. Con el botón "Guardar Cambios" se ejecuta el post "/device_new", con el cual se hace un INSERT del nuevo dispositivo en la tabla DEVICES de la base de datos. Luego, una vez se recibe la respuesta del backend, se ejecuta la función buscarDevices() para actualizar la lista de dispositivos en la página.
+La funcionalidad para agragar un nuevo dispositivo funciona de esta manera:
+</br>
+Frontend: 
+<ul>
+    <li>El botón "+ New Device" id="btnNewDevice" ejecuta el modal en el que se pueden completar los campos de un dispositivo</li>
+    <li> Dentro del formulario se tienen 4 inputs para el nombre, la descripción, el tipo y el estado del dispositivo. </li>
+    <li>El botón id="btnGuardar" ejecuta la función saveNew () que envía los datos de los inputs al backend</li>
+    <li>Cuando se recibe la respuesta afirmativa del backend, se vuelve a ejecutar la función buscarDevices() para actualizar la lista de dispositivos con los cambios.</li>
+</ul>
+</br>
+Backend: 
+<ul>
+    <li>Se ejecuta el post "/device_new" el cual primero consulta cuál es el máximo número de id utilizado en la base de datos, y le asigna al nuevo dispositivo este id +1</li>
+    <li>Luego, este post hace in insert en la tabla Devices con el id creado y los datos que vinieron del frontend </li>
+</ul>
 
 ### Editar dispositivos
 
-Cada dispositivo tiene un botón con el ícono de editar con el cual se puede modificar el nombre, la descripción o el tipo de dispositivo. Esto se hace mediante un formulario modal, que carga automáticamente los valores actuales del dispositivo mediante el get "/one_device/:id", dejando que el usuario pueda editar sobre lo que ya está guardado en la base de datos. Con el botón "Guardar Cambios" se ejecuta el post "/device" que actualiza los campos del dispositivo según se encuentran en el formulario. Luego, también se ejecuta la actualización de la lista de dispositivos en la web.
-Si se quiere editar el estado del dispositivo (predido/apagado), se realiza a través del switch, el cual ejecuta el post "/device_state" en el backend.
+Cada dispositivo tiene un botón con el ícono de editar con el cual se puede modificar el nombre, la descripción o el tipo de dispositivo. Esto se hace de esta manera:
+</br>
+Frontend: 
+<ul>
+    <li>Al momento en que se cargan los dispositivos con la función buscarDevices(), se genera un botón de edición para cada dispositivo. </li>
+    <li>El botón de edición ejecuta el modal y la función editDevices(dev_id:number) que trae los datos actuales del device de la BD</li>
+    <li>Dentro del formulario (id="modal_new") se tienen 2 inputs para el nombre, la descripción y el tipo. </li>
+    <li>El botón id="btnGuardarDev" ejecuta la función saveEdit(dev_id:number), que envía los nuevos datos al backend y cierra el modal</li>
+    <li>Cuando se recibe la respuesta afirmativa del backend, se vuelve a ejecutar la función buscarDevices() para actualizar la lista de dispositivos con los cambios.</li>
+</ul>
+</br>
+Backend: 
+<ul>
+    <li>Se ejecuta el get "/one_device/:id" para enviar los datos actuales del dispositivo al formulario.</li>
+    <li>Se ejecuta el post "/device" para hacer un UPDATE a los campos del dispositivo según la información recibida del formulario del frontend </li>
+</ul>
 
-### Editar dispositivos
-Cada dispositivo tiene un botón con el ícono para eliminarlo, el cual ejecuta el post "/delete_device" que elimina el dispositivo de la base de datos. Una vez eliminado, desde el frontend se actualiza la lista de dispositivos con la función buscarDevices() .
-
-### Frontend
-
-Completá todos los detalles sobre cómo armaste el frontend, sus interacciones, etc.
-
-### Backend
-
-Completá todos los detalles de funcionamiento sobre el backend, sus interacciones con el cliente web, la base de datos, etc.
-
-<details><summary><b>Ver los endpoints disponibles</b></summary><br>
-
-Completá todos los endpoints del backend con los metodos disponibles, los headers y body que recibe, lo que devuelve, ejemplos, etc.
-
-1) Devolver el estado de los dispositivos.
-
-```json
-{
-    "method": "get",
-    "request_headers": "application/json",
-    "request_body": "",
-    "response_code": 200,
-    "request_body": {
-        "devices": [
-            {
-                "id": 1,
-                "status": true,
-                "description": "Kitchen light"
-            }
-        ]
-    },
-}
-``` 
-
-</details>
-
-</details>
-
+### Eliminar dispositivos
+Cada dispositivo tiene un botón con el ícono para eliminarlo que funciona así:
+</br>
+Frontend: 
+<ul>
+    <li>Al momento en que se cargan los dispositivos con la función deleteDevices(dev_id:number) que envía el id del dispositivo a eliminar al backend </li>
+    <li>Cuando se recibe la respuesta afirmativa del backend, se vuelve a ejecutar la función buscarDevices() para actualizar la lista de dispositivos con los cambios.</li>
+</ul>
+</br>
+Backend: 
+<ul>
+    <li>Se ejecuta el post "/delete_device" que elimina el dispositivo de la base de datos. </li>
+</ul>
 
 ## Tecnologías utilizadas 🛠️
 
