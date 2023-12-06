@@ -7,7 +7,7 @@ Este proyecto es una aplicación web fullstack que se ejecuta sobre el ecosistem
 
 La aplicación IoT de base que viene con este proyecto se encarga de crear una tabla llamada `Devices` en la base de datos, y permite controlar desde el navegador el estado de los devices de un hogar inteligente - *como pueden ser luces, TVs, ventiladores, persianas, parlantes y otros* - y almacenar los estados de cada uno en la base de datos. 
 
-En esta imagen se puede previsualizar la web tanto en pantalla de PC como de celular. Esta web se adapta al tamaño de pantalla de los dispositivos. Adicionalmente, se le agregaron 3 funcionalidades nuevas: agregar 1) agregar un dispositivo, 2) editar dispositivos y 3) eliminar dispositivos. El detalle de estas funcionalidades se puede ver más abajo en la sección "Detalles de implementación".
+En esta imagen se puede previsualizar la web tanto en pantalla de PC como de celular. Esta web se adapta al tamaño de pantalla de los dispositivos. Adicionalmente, se le agregaron 3 funcionalidades nuevas: 1) agregar un dispositivo, 2) editar dispositivos y 3) eliminar dispositivos. El detalle de estas funcionalidades se puede ver más abajo en la sección "Detalles de implementación".
 
 ![architecture](doc/Página_Large.png)
 ![architecture](doc/Página_celular.png)
