@@ -7,7 +7,7 @@ Este proyecto es una aplicación web fullstack que se ejecuta sobre el ecosistem
 
 La aplicación IoT de base que viene con este proyecto se encarga de crear una tabla llamada `Devices` en la base de datos, y permite controlar desde el navegador el estado de los devices de un hogar inteligente - *como pueden ser luces, TVs, ventiladores, persianas, parlantes y otros* - y almacenar los estados de cada uno en la base de datos. 
 
-En esta imagen se puede previsualizar la web tanto en pantalla de PC como de celular.
+En esta imagen se puede previsualizar la web tanto en pantalla de PC como de celular. Esta web se adapta al tamaño de pantalla de los dispositivos. Adicionalmente, se le agregaron 3 funcionalidades nuevas: agregar 1) agregar un dispositivo, 2) editar dispositivos y 3) eliminar dispositivos. El detalle de estas funcionalidades se puede ver más abajo en la sección "Detalles de implementación".
 
 ![architecture](doc/Página_Large.png)
 ![architecture](doc/Página_celular.png)
@@ -150,12 +150,13 @@ En esta sección podés ver los detalles específicos de funcionamiento del cód
 
 ### Agregar un dispositivo
 
-La funcionalidad para agragar un nuevo dispositivo funciona de esta manera: 
+La funcionalidad para agragar un nuevo dispositivo funciona de esta manera:
+
 </br>
 Frontend: 
 <ul>
     <li>El botón "+ New Device" id="btnNewDevice" ejecuta el modal en el que se pueden completar los campos de un dispositivo</li>
-    <li> Dentro del formulario se tienen 4 inputs para el nombre, la descripción, el tipo y el estado del dispositivo. </li>
+    <li> Dentro del formulario se tienen 3 inputs para el nombre, la descripción y el estado del dispositivo, y un elemento select para el tipo. </li>
     <li>El botón id="btnGuardar" ejecuta la función saveNew () que envía los datos de los inputs al backend</li>
     <li>Cuando se recibe la respuesta afirmativa del backend, se vuelve a ejecutar la función buscarDevices() para actualizar la lista de dispositivos con los cambios.</li>
 </ul>
@@ -169,28 +170,31 @@ Backend:
 ### Editar dispositivos
 
 Cada dispositivo tiene un botón con el ícono de editar con el cual se puede modificar el nombre, la descripción o el tipo de dispositivo. Esto se hace de esta manera:
+
 </br>
 Frontend: 
 <ul>
     <li>Al momento en que se cargan los dispositivos con la función buscarDevices(), se genera un botón de edición para cada dispositivo. </li>
-    <li>El botón de edición ejecuta el modal y la función editDevices(dev_id:number) que trae los datos actuales del device de la BD</li>
-    <li>Dentro del formulario (id="modal_new") se tienen 2 inputs para el nombre, la descripción y el tipo. </li>
-    <li>El botón id="btnGuardarDev" ejecuta la función saveEdit(dev_id:number), que envía los nuevos datos al backend y cierra el modal</li>
+    <li>El botón de edición ejecuta el modal y la función editDevices(dev_id:number) que trae los datos actuales del device de la BD.</li>
+    <li>Dentro del formulario (id="modal_new") se tienen 2 inputs para el nombre, la descripción y un elemento select para el tipo. </li>
+    <li>El botón id="btnGuardarDev" ejecuta la función saveEdit(dev_id:number), que envía los nuevos datos al backend y cierra el modal.</li>
     <li>Cuando se recibe la respuesta afirmativa del backend, se vuelve a ejecutar la función buscarDevices() para actualizar la lista de dispositivos con los cambios.</li>
 </ul>
 </br>
 Backend: 
 <ul>
     <li>Se ejecuta el get "/one_device/:id" para enviar los datos actuales del dispositivo al formulario.</li>
-    <li>Se ejecuta el post "/device" para hacer un UPDATE a los campos del dispositivo según la información recibida del formulario del frontend </li>
+    <li>Se ejecuta el post "/device" para hacer un UPDATE a los campos del dispositivo según la información recibida del formulario del frontend. </li>
 </ul>
 
 ### Eliminar dispositivos
 Cada dispositivo tiene un botón con el ícono para eliminarlo que funciona así:
+
 </br>
 Frontend: 
 <ul>
-    <li>Al momento en que se cargan los dispositivos con la función deleteDevices(dev_id:number) que envía el id del dispositivo a eliminar al backend </li>
+    <li>Al momento en que se cargan los dispositivos con la función deleteDevices(dev_id:number), se genera un botón de edición para cada dispositivo.</li>
+    <li>Este botón envía el id del dispositivo a eliminar al backend.</li>
     <li>Cuando se recibe la respuesta afirmativa del backend, se vuelve a ejecutar la función buscarDevices() para actualizar la lista de dispositivos con los cambios.</li>
 </ul>
 </br>
