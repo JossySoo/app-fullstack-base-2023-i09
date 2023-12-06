@@ -15,7 +15,7 @@ Realizando estas tareas vas a a tener una aplicación fullstack IoT del mundo re
 
 En esta imagen podés ver una posible implementación del cliente web que controla los artefactos del hogar.
 
-![architecture](doc/Página_large.png)
+![architecture](doc/Página_Large.png)
 ![architecture](doc/Página_celular.png)
 
 ## Comenzando 🚀
