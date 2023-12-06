@@ -18,7 +18,7 @@ app.use(express.json());
 app.use(express.static('/home/node/app/static/'));
 
 //=======[ Main module code ]==================================================
-app.get("/one_device/:id",(req,res,next)=>{
+app.get("/oneDevice/:id",(req,res,next)=>{
     console.log("id",req.params.id)
     utils.query("select * from Devices where id="+req.params.id,(err,rsp,fields)=>{
         if(err==null){
