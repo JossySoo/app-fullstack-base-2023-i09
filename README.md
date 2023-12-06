@@ -183,7 +183,7 @@ Frontend:
 </br>
 Backend: 
 <ul>
-    <li>Se ejecuta el get "/one_device/:id" para enviar los datos actuales del dispositivo al formulario.</li>
+    <li>Se ejecuta el get "/oneDevice/:id" para enviar los datos actuales del dispositivo al formulario.</li>
     <li>Se ejecuta el post "/device" para hacer un UPDATE a los campos del dispositivo según la información recibida del formulario del frontend. </li>
 </ul>
 
